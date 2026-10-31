@@ -2,7 +2,7 @@ import sqlite3
 from contextlib import closing
 from pathlib import Path
 
-CRYPTO_DB = Path(__file__).resolve().parents[2] / "crypto.db"
+CRYPTO_DB = Path(__file__).resolve().parents[2] / "db" / "crypto.db"
 
 
 class CryptoHistoryRepository:

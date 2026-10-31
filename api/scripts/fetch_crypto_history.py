@@ -5,7 +5,7 @@ from pathlib import Path
 
 import requests
 
-DB_PATH = Path(__file__).resolve().parents[1] / "crypto.db"
+DB_PATH = Path(__file__).resolve().parents[1] / "db" / "crypto.db"
 DAY_MS = 86_400_000
 REQUEST_PAUSE_S = 1.0
 
