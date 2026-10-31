@@ -1,4 +1,4 @@
-# TradingView 2.0
+# Stock Charts Dmac
 
 - `api/` – FastAPI backend (router → service → repository → model, SQLite via SQLAlchemy)
 - `ui/` – React + TypeScript + Vite frontend

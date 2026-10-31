@@ -52,7 +52,7 @@ function App() {
 
   return (
     <main>
-      <h1>TradingView 2.0</h1>
+      <h1>Stock Charts Dmac</h1>
       <div className="chart-grid">
         {PANELS.map((panel) => (
           <ChartPanel
