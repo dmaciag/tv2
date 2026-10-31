@@ -1,0 +1,19 @@
+main {
+  padding: 24px 16px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .chart-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

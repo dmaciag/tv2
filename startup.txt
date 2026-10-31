@@ -1,0 +1,3 @@
+cd "C:\Users\yas\Documents\AllDocuments\Coding_Projects\TradingView2.0\api"
+uvicorn app.main:app --reload
+npm run dev

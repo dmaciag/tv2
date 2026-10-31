@@ -1,0 +1,204 @@
+.explode-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.explode-modal {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  height: 95vh;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel-bg);
+  color: var(--panel-text);
+  text-align: left;
+  font-size: 14px;
+}
+
+.explode-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.explode-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.explode-meta {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.explode-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 0;
+  background: #e53935;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.explode-close:hover {
+  background: #c62828;
+}
+
+.explode-error {
+  padding: 12px;
+  color: #ef5350;
+}
+
+.explode-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px;
+}
+
+.explode-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.explode-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.explode-check {
+  font-size: 12px;
+  color: #ff9800;
+}
+
+.explode-check.ok {
+  color: #26a69a;
+}
+
+.explode-desc {
+  flex-basis: 100%;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.explode-card-chart {
+  flex: 1;
+  min-height: 0;
+}
+
+.explode-card-chart .price-chart-wrap,
+.explode-card-chart .price-chart {
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .explode-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: 420px;
+    overflow-y: auto;
+  }
+}
+
+.explode-drill {
+  margin-left: auto;
+  padding: 2px 10px;
+  border: 1px solid #9c6ade;
+  border-radius: 4px;
+  background: transparent;
+  color: #b388ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.explode-drill:hover:not(:disabled) {
+  background: rgba(156, 106, 222, 0.15);
+}
+
+.explode-drill.active {
+  background: #7e57c2;
+  border-color: #7e57c2;
+  color: #fff;
+}
+
+.explode-drill:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.explode-level {
+  padding: 0 6px;
+  border-radius: 3px;
+  background: #7e57c2;
+  color: #fff;
+  font-size: 11px;
+}
+
+.explode-drill-error {
+  flex-basis: 100%;
+  font-size: 12px;
+  color: #ef5350;
+}
+
+.explode-variation {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.explode-variation span {
+  margin-right: 4px;
+  opacity: 0.7;
+}
+
+.explode-variation button {
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.explode-variation button:hover:not(:disabled) {
+  background: var(--panel-hover);
+}
+
+.explode-variation button.active {
+  border-color: var(--panel-active);
+  color: var(--panel-active);
+}
+
+.explode-variation button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

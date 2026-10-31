@@ -1,0 +1,238 @@
+.chart-panel,
+.explode-modal {
+  --panel-bg: #131722;
+  --panel-text: #d1d4dc;
+  --panel-border: #2a2e39;
+  --panel-hover: #2a2e39;
+  --panel-active: #2962ff;
+}
+
+.chart-panel.light,
+.explode-modal.light {
+  --panel-bg: #ffffff;
+  --panel-text: #131722;
+  --panel-border: #e0e3eb;
+  --panel-hover: #f0f3fa;
+}
+
+.chart-panel {
+  min-width: 0;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel-bg);
+  color: var(--panel-text);
+  text-align: left;
+  font-size: 14px;
+}
+
+.chart-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.chart-toolbar input,
+.chart-toolbar select,
+.chart-toolbar button {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.chart-toolbar select option {
+  background: var(--panel-bg);
+}
+
+.chart-toolbar .ticker-input {
+  flex: 1 1 220px;
+  min-width: 120px;
+  text-transform: uppercase;
+}
+
+.chart-toolbar .ticker-input::placeholder {
+  text-transform: none;
+}
+
+.chart-toolbar button {
+  cursor: pointer;
+}
+
+.chart-toolbar button:hover:not(:disabled) {
+  background: var(--panel-hover);
+}
+
+.chart-toolbar button.active {
+  border-color: var(--panel-active);
+  color: var(--panel-active);
+}
+
+.chart-toolbar button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.chart-toolbar .timeframes {
+  display: grid;
+  grid-template-rows: 15px 15px;
+  gap: 2px;
+}
+
+.chart-toolbar .timeframes button {
+  height: 15px;
+  padding: 0 6px;
+  border-color: transparent;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.chart-toolbar .timeframes button.synthetic:not(.active) {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.chart-toolbar .timeframes button.active {
+  border-color: var(--panel-active);
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-legend .up {
+  color: #26a69a;
+}
+
+.chart-legend .down {
+  color: #ef5350;
+}
+
+.chart-error {
+  padding: 8px 12px 0;
+  color: #ef5350;
+}
+
+.price-chart {
+  height: 760px;
+}
+
+.force-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.chart-legend .chart-source {
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+.price-chart-wrap {
+  position: relative;
+}
+
+.change-band {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--panel-active) 12%, transparent);
+  border-inline: 1px solid color-mix(in srgb, var(--panel-active) 60%, transparent);
+  pointer-events: none;
+}
+
+.price-chart-wrap.change-pick canvas {
+  cursor: crosshair !important;
+}
+
+.price-chart-wrap.change-drag canvas {
+  cursor: ns-resize !important;
+}
+
+.chart-legend .change-hint {
+  color: var(--panel-active);
+}
+
+.chart-legend .fractal-hint {
+  color: #c9a000;
+}
+
+.chart-panel.dark .chart-legend .fractal-hint {
+  color: #f5c518;
+}
+
+.ohlc-tooltip {
+  position: absolute;
+  top: 6px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2px 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--panel-bg) 85%, transparent);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  pointer-events: none;
+}
+
+.ohlc-tooltip .ohlc-time {
+  grid-column: 1 / -1;
+  opacity: 0.7;
+}
+
+.ohlc-tooltip span {
+  opacity: 0.6;
+  text-align: left;
+}
+
+.ohlc-tooltip.up b {
+  color: #26a69a;
+}
+
+.ohlc-tooltip.down b {
+  color: #ef5350;
+}
+
+.pane-auto {
+  position: absolute;
+  left: 8px;
+  z-index: 3;
+  padding: 2px 8px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--panel-bg) 80%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pane-auto:hover {
+  background: var(--panel-hover);
+}
+
+.pane-auto.active {
+  border-color: var(--panel-active);
+  color: var(--panel-active);
+}
