@@ -11,6 +11,7 @@ from app.routers import (
     explode_router,
     fractal_router,
     indicator_router,
+    saved_view_router,
     symbol_router,
 )
 
@@ -37,6 +38,7 @@ app.include_router(arithmetic_router.router)
 app.include_router(explode_router.router)
 app.include_router(indicator_router.router)
 app.include_router(fractal_router.router)
+app.include_router(saved_view_router.router)
 
 
 @app.get("/api/health")

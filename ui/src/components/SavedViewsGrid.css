@@ -1,0 +1,41 @@
+.saved-views {
+  margin-top: 16px;
+  text-align: left;
+}
+
+.saved-views h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.saved-view-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  height: 100%;
+}
+
+.saved-view-actions button {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid #2962ff;
+  border-radius: 4px;
+  background: transparent;
+  color: #2962ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.saved-view-actions button:hover {
+  background: color-mix(in srgb, #2962ff 12%, transparent);
+}
+
+.saved-view-actions button.danger {
+  border-color: #ef5350;
+  color: #ef5350;
+}
+
+.saved-view-actions button.danger:hover {
+  background: color-mix(in srgb, #ef5350 12%, transparent);
+}

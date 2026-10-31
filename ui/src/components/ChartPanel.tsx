@@ -3,6 +3,7 @@ import { chartStateApi, type ChartRef, type TimeRange } from '../api/chartStateA
 import { explodeApi } from '../api/explodeApi'
 import { fractalApi, type FractalMatch } from '../api/fractalApi'
 import { indicatorApi } from '../api/indicatorApi'
+import type { SavedViewInput } from '../api/savedViewApi'
 import { normalizeTicker, symbolApi } from '../api/symbolApi'
 import {
   EXPLODE_TO,
@@ -66,12 +67,20 @@ type FractalState = { candles: Candle[] } & (
   | { status: 'error'; message: string }
 )
 
-interface Props {
-  panelId: string
-  defaultChart: ChartRef
+export interface OpenRequest {
+  view: SavedViewInput
+  nonce: number
 }
 
-export function ChartPanel({ panelId, defaultChart }: Props) {
+interface Props {
+  panelId: string
+  label: string
+  defaultChart: ChartRef
+  openRequest?: OpenRequest | null
+  onSaveView: (view: SavedViewInput) => Promise<unknown>
+}
+
+export function ChartPanel({ panelId, label, defaultChart, openRequest, onSaveView }: Props) {
   const [tickerInput, setTickerInput] = useState('')
   const [force, setForce] = useState(false)
   const [query, setQuery] = useState<Query | null>(null)
@@ -143,6 +152,17 @@ export function ChartPanel({ panelId, defaultChart }: Props) {
         setQuery({ ticker: chart.ticker, timeframe: chart.interval, force: false })
       })
   }, [panelId, defaultChart])
+
+  useEffect(() => {
+    if (!openRequest) return
+    const { ticker, interval, from, to } = openRequest.view
+    const key = isSynthetic(interval)
+      ? syntheticKey(ticker, interval)
+      : chartKey({ ticker, interval })
+    rangesRef.current.set(key, { from, to })
+    setTickerInput(ticker)
+    setQuery({ ticker, timeframe: interval, force: false })
+  }, [openRequest])
 
   useEffect(() => {
     if (!query) return
@@ -384,6 +404,35 @@ export function ChartPanel({ panelId, defaultChart }: Props) {
         rangesRef.current.set(syntheticKey(chart.ticker, shownSynthetic.value), range)
     : handleVisibleRangeChange
 
+  const [saveStatus, setSaveStatus] = useState<'saving' | 'saved' | 'failed' | null>(null)
+  const saveStatusTimerRef = useRef<number | undefined>(undefined)
+
+  useEffect(() => () => window.clearTimeout(saveStatusTimerRef.current), [])
+
+  function handleSaveView() {
+    if (!loaded || candles.length === 0) return
+    const key = shownSynthetic
+      ? syntheticKey(loaded.query.ticker, shownSynthetic.value)
+      : chartKey(loaded.view.chart)
+    const range = rangesRef.current.get(key) ?? {
+      from: candles[0].time,
+      to: candles[candles.length - 1].time,
+    }
+    window.clearTimeout(saveStatusTimerRef.current)
+    setSaveStatus('saving')
+    onSaveView({
+      ticker: loaded.data.ticker,
+      interval: loaded.query.timeframe,
+      from: Math.floor(range.from),
+      to: Math.ceil(range.to),
+    })
+      .then(() => setSaveStatus('saved'))
+      .catch(() => setSaveStatus('failed'))
+      .finally(() => {
+        saveStatusTimerRef.current = window.setTimeout(() => setSaveStatus(null), 1500)
+      })
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     const ticker = normalizeTicker(tickerInput)
@@ -404,7 +453,6 @@ export function ChartPanel({ panelId, defaultChart }: Props) {
           onChange={(e) => setTickerInput(e.target.value)}
           aria-label="Ticker"
         />
-        {}
         <div className="timeframes" role="group" aria-label="Timeframe">
           {TIMEFRAME_COLUMNS.flatMap(({ real, synthetic }, column) =>
             [synthetic, real].map(
@@ -437,6 +485,14 @@ export function ChartPanel({ panelId, defaultChart }: Props) {
           <input type="checkbox" checked={force} onChange={(e) => setForce(e.target.checked)} />
           Force
         </label>
+        <button
+          type="button"
+          onClick={handleSaveView}
+          disabled={candles.length === 0 || saveStatus === 'saving'}
+          title={`Save this chart's ticker, timeframe and visible window to Saved views (updates it if it's already there). Open it again later in ${label}.`}
+        >
+          {saveStatus === 'saved' ? 'Saved ✓' : saveStatus === 'failed' ? 'Save failed' : 'Add'}
+        </button>
 
         <span className="toolbar-spacer" />
 
