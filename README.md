@@ -1,5 +1,7 @@
 # Stock Charts Dmac
 
+![alt text](image.png)
+
 - `api/` – FastAPI backend (router → service → repository → model, SQLite via SQLAlchemy)
 - `ui/` – React + TypeScript + Vite frontend
 
