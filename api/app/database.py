@@ -6,7 +6,7 @@ from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 DB_DIR = Path(__file__).resolve().parents[1] / "db"
 
-DATABASE_URL = f"sqlite:///{DB_DIR / 'tradingview.db'}"
+DATABASE_URL = f"sqlite:///{DB_DIR / 'stock.db'}"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
